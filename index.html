@@ -1,26 +1,814 @@
 <!doctype html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>Spirited Drivers Club — Stuttgart to Budapest | May 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #1A2E1A; color: #F5F0E8; font-family: 'Lato', sans-serif; }
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Spirited Drivers Club — Stuttgart to Budapest | May 2026</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/assets/index-B2SPgRBj.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DcI2GNKt.css">
-  </head>
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-  <body>
+    /* ── Buttons ── */
+    .btn-gold {
+      display: inline-block;
+      background: #C9A84C;
+      color: #1A2E1A;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s ease, transform 0.15s ease;
+    }
+    .btn-gold:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-gold:active { transform: translateY(0); }
+    .btn-gold:focus-visible { outline: 2px solid #C9A84C; outline-offset: 3px; }
 
-    <div id="root"></div>
-    <script
-      defer
-      src="https://manus-analytics.com/umami"
-      data-website-id="cd455a29-3bba-45b9-8fc7-5e9c5cc2528a"></script>
-  </body>
+    .btn-outline-gold {
+      display: inline-block;
+      background: transparent;
+      color: #C9A84C;
+      border: 1px solid rgba(201,168,76,0.6);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.75rem 2rem;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+    .btn-outline-gold:hover { background: rgba(201,168,76,0.1); border-color: #C9A84C; color: #F5F0E8; transform: translateY(-1px); }
+    .btn-outline-gold:active { transform: translateY(0); }
+    .btn-outline-gold:focus-visible { outline: 2px solid #C9A84C; outline-offset: 3px; }
 
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(26,46,26,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    /* ── Divider motif ── */
+    .motif {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .motif-line {
+      height: 1px;
+      width: 60px;
+    }
+    .motif-diamond {
+      width: 6px;
+      height: 6px;
+      background: #C9A84C;
+      transform: rotate(45deg);
+    }
+
+    /* ── Fade in animation ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── FAQ ── */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .faq-answer.open { max-height: 300px; }
+    .faq-icon {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: #C9A84C;
+      line-height: 1;
+    }
+    .faq-icon.open { transform: rotate(45deg); }
+
+    /* ── Gallery hover ── */
+    .gallery-img { transition: transform 0.5s ease; display: block; }
+    .gallery-img:hover { transform: scale(1.04); }
+
+    /* ── Mobile menu ── */
+    #mobile-menu {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    #mobile-menu.open { max-height: 320px; }
+
+    /* ── Responsive ── */
+    @media (min-width: 768px) {
+      .md\:flex { display: flex !important; }
+      .md\:hidden { display: none !important; }
+      .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr) !important; }
+      .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
+      .md\:flex-row { flex-direction: row !important; }
+      .md\:flex-row-reverse { flex-direction: row-reverse !important; }
+    }
+    @media (max-width: 767px) {
+      .md\:flex { display: none !important; }
+      .md\:hidden { display: flex !important; }
+    }
+    @media (min-width: 1024px) {
+      .lg\:grid-cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
+    }
+
+    /* ── Countdown ── */
+    .countdown-unit { text-align: center; min-width: 64px; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <div class="container flex items-center justify-between py-4">
+    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/sdc-logo_690c210c.png"
+         alt="Spirited Drivers Club"
+         style="height:52px; filter:brightness(0) invert(1);" />
+
+    <!-- Desktop links -->
+    <div class="md:flex hidden items-center" style="gap:2rem;">
+      <a href="#about" style="color:#C9A84C;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">The Drive</a>
+      <a href="#route" style="color:#C9A84C;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">The Route</a>
+      <a href="#gallery" style="color:#C9A84C;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">Gallery</a>
+      <a href="#faq" style="color:#C9A84C;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">FAQ</a>
+      <a href="https://buy.stripe.com/eVq5kCaee3vP09Y0WggQE03" target="_blank" rel="noopener noreferrer"
+         class="btn-gold" style="padding:0.5rem 1.5rem;font-size:12px;">Secure Your Spot</a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button id="menu-btn" class="md:hidden" onclick="toggleMenu()"
+      style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;width:40px;height:40px;"
+      aria-label="Toggle menu">
+      <span id="bar1" style="display:block;width:24px;height:2px;background:#C9A84C;transition:transform 0.25s,opacity 0.25s;"></span>
+      <span id="bar2" style="display:block;width:24px;height:2px;background:#C9A84C;transition:opacity 0.25s;"></span>
+      <span id="bar3" style="display:block;width:24px;height:2px;background:#C9A84C;transition:transform 0.25s,opacity 0.25s;"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" style="border-top:1px solid rgba(201,168,76,0.12);background:rgba(26,46,26,0.98);">
+    <div style="padding:1.25rem 1.5rem 1.5rem;display:flex;flex-direction:column;gap:1rem;">
+      <a href="#about" onclick="closeMenu()" style="color:#C9A84C;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">The Drive</a>
+      <a href="#route" onclick="closeMenu()" style="color:#C9A84C;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">The Route</a>
+      <a href="#gallery" onclick="closeMenu()" style="color:#C9A84C;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">Gallery</a>
+      <a href="#faq" onclick="closeMenu()" style="color:#C9A84C;font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">FAQ</a>
+      <a href="https://buy.stripe.com/eVq5kCaee3vP09Y0WggQE03" target="_blank" rel="noopener noreferrer"
+         onclick="closeMenu()" class="btn-gold" style="text-align:center;font-size:12px;">Secure Your Spot</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══════════ HERO ══════════ -->
+<section style="position:relative;display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(160deg, rgba(26,46,26,0.75) 0%, rgba(26,46,26,0.4) 50%, rgba(26,46,26,0.85) 100%), url('https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/alpine_convoy_4ad8fa86.png') center/cover no-repeat;">
+
+  <!-- Road motif SVG -->
+  <div style="position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);opacity:0.06;pointer-events:none;z-index:0;">
+    <svg class="road-motif" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:100%;width:auto;">
+      <path d="M100 300 C100 300 80 250 90 200 C100 150 60 120 80 80 C100 40 90 0 90 0" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+      <path d="M115 300 C115 300 95 250 105 200 C115 150 75 120 95 80 C115 40 105 0 105 0" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="container text-center relative" style="z-index:10;padding-top:100px;">
+    <p class="fade-in" style="font-family:'Lato',sans-serif;font-size:13px;letter-spacing:0.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:1rem;">
+      Spirited Drivers Club — Inaugural Expedition
+    </p>
+
+    <h1 class="fade-in" style="font-family:'Dancing Script',cursive;font-size:clamp(3.5rem, 9vw, 7rem);color:#F5F0E8;line-height:1.1;margin-bottom:0.5rem;">
+      Stuttgart to Budapest
+    </h1>
+
+    <p class="fade-in" style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.1rem, 2.5vw, 1.5rem);color:#C9A84C;margin-bottom:2rem;">
+      15 – 17 May 2026
+    </p>
+
+    <!-- Divider motif -->
+    <div class="motif fade-in">
+      <div class="motif-line" style="background:linear-gradient(90deg, transparent, #C9A84C);"></div>
+      <div class="motif-diamond"></div>
+      <div class="motif-line" style="background:linear-gradient(90deg, #C9A84C, transparent);"></div>
+    </div>
+
+    <p class="fade-in" style="font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(1rem, 2vw, 1.2rem);color:rgba(245,240,232,0.95);max-width:560px;margin:1.5rem auto 2.5rem;line-height:1.8;">
+      Three days. Three countries. One unforgettable drive through the heart of Europe.
+    </p>
+
+    <div class="fade-in flex flex-col sm:flex-row gap-4 justify-center" style="margin-bottom:2rem;">
+      <a href="https://buy.stripe.com/eVq5kCaee3vP09Y0WggQE03" target="_blank" rel="noopener noreferrer"
+         class="btn-gold">Secure Your Spot — €300</a>
+      <a href="#about" class="btn-outline-gold">Learn More</a>
+    </div>
+
+    <!-- Countdown -->
+    <div class="fade-in" style="margin-top:2rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;" id="countdown-row">
+      <div class="countdown-unit">
+        <div id="cd-days" style="font-family:'Playfair Display',serif;font-size:clamp(2rem, 5vw, 2.8rem);font-weight:700;color:#C9A84C;line-height:1;letter-spacing:-0.02em;">00</div>
+        <div style="font-family:'Lato',sans-serif;font-size:10px;letter-spacing:0.18em;color:rgba(245,240,232,0.55);margin-top:0.35rem;text-transform:uppercase;">DAYS</div>
+      </div>
+      <div class="countdown-unit">
+        <div id="cd-hours" style="font-family:'Playfair Display',serif;font-size:clamp(2rem, 5vw, 2.8rem);font-weight:700;color:#C9A84C;line-height:1;letter-spacing:-0.02em;">00</div>
+        <div style="font-family:'Lato',sans-serif;font-size:10px;letter-spacing:0.18em;color:rgba(245,240,232,0.55);margin-top:0.35rem;text-transform:uppercase;">HOURS</div>
+      </div>
+      <div class="countdown-unit">
+        <div id="cd-minutes" style="font-family:'Playfair Display',serif;font-size:clamp(2rem, 5vw, 2.8rem);font-weight:700;color:#C9A84C;line-height:1;letter-spacing:-0.02em;">00</div>
+        <div style="font-family:'Lato',sans-serif;font-size:10px;letter-spacing:0.18em;color:rgba(245,240,232,0.55);margin-top:0.35rem;text-transform:uppercase;">MINUTES</div>
+      </div>
+      <div class="countdown-unit">
+        <div id="cd-seconds" style="font-family:'Playfair Display',serif;font-size:clamp(2rem, 5vw, 2.8rem);font-weight:700;color:#C9A84C;line-height:1;letter-spacing:-0.02em;">00</div>
+        <div style="font-family:'Lato',sans-serif;font-size:10px;letter-spacing:0.18em;color:rgba(245,240,232,0.55);margin-top:0.35rem;text-transform:uppercase;">SECONDS</div>
+      </div>
+    </div>
+
+    <p class="fade-in" style="font-family:'Lato',sans-serif;font-size:12px;color:rgba(201,168,76,0.7);margin-top:1.5rem;letter-spacing:0.05em;">
+      Limited spots remaining — first allocations already spoken for<br/>
+      <span style="color:rgba(201,168,76,0.9);font-size:13px;">Full event ticket price including deposit: €1,650</span>
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════ FEEL THE DRIVE (id=about) ══════════ -->
+<section id="about" style="background:#1A2E1A;padding:6rem 0;">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:3rem;">
+      <p style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.75rem;">Visual Teaser</p>
+      <h2 style="font-family:'Dancing Script',cursive;font-size:clamp(2.5rem, 5vw, 4rem);color:#F5F0E8;">Feel the Drive</h2>
+      <div class="motif">
+        <div class="motif-line" style="background:linear-gradient(90deg, transparent, #C9A84C);"></div>
+        <div class="motif-diamond"></div>
+        <div class="motif-line" style="background:linear-gradient(90deg, #C9A84C, transparent);"></div>
+      </div>
+      <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.7);max-width:560px;margin:1rem auto;line-height:1.8;font-size:1.05rem;">
+        More than a road trip, this is a curated expedition through some of Europe's most breathtaking roads, shared with a community of like-minded drivers.
+      </p>
+    </div>
+
+    <!-- Video embed -->
+    <div class="fade-in" style="max-width:800px;border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,0.3);margin:0 auto;">
+      <div style="position:relative;padding-bottom:56.25%;height:0;">
+        <iframe src="https://www.loom.com/embed/0326cd6fbe7a41ca820242a396793d7e"
+                frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+                style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ ABOUT THE CLUB (teal section) ══════════ -->
+<section style="background:#1E3A3A;padding:6rem 0;position:relative;overflow:hidden;">
+  <!-- Road motif -->
+  <div style="position:absolute;top:0;bottom:0;right:0;opacity:0.04;pointer-events:none;">
+    <svg viewBox="0 0 200 300" fill="none" style="height:100%;width:auto;">
+      <path d="M100 300 C100 300 80 250 90 200 C100 150 60 120 80 80 C100 40 90 0 90 0" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+      <path d="M115 300 C115 300 95 250 105 200 C115 150 75 120 95 80 C115 40 105 0 105 0" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div style="display:grid;gap:4rem;align-items:center;" class="md:grid-cols-2">
+
+      <!-- Left: text -->
+      <div class="fade-in">
+        <p style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.75rem;">About the Club</p>
+        <h2 style="font-family:'Dancing Script',cursive;font-size:clamp(2.2rem, 4vw, 3.5rem);color:#F5F0E8;margin-bottom:1.5rem;">More Than Just the Drive</h2>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.8);line-height:1.9;margin-bottom:1.25rem;font-size:1.05rem;">
+          The Spirited Drivers Club is Europe's premier automotive lifestyle community for those who believe the journey is just as important as the destination. We bring together ambitious, car-passionate individuals for curated expeditions across the continent.
+        </p>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.8);line-height:1.9;font-size:1.05rem;">
+          The passion for cars and the love we have for them is only half the fun. It's the people along the way that make it truly memorable.
+        </p>
+
+        <!-- Stats -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem;">
+          <div style="text-align:center;">
+            <p style="font-family:'Playfair Display',serif;font-size:2rem;color:#C9A84C;font-weight:700;">3</p>
+            <p style="font-family:'Lato',sans-serif;font-size:0.75rem;color:rgba(245,240,232,0.6);text-transform:uppercase;letter-spacing:0.1em;">Days</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:'Playfair Display',serif;font-size:2rem;color:#C9A84C;font-weight:700;">3</p>
+            <p style="font-family:'Lato',sans-serif;font-size:0.75rem;color:rgba(245,240,232,0.6);text-transform:uppercase;letter-spacing:0.1em;">Countries</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:'Playfair Display',serif;font-size:2rem;color:#C9A84C;font-weight:700;">Limited</p>
+            <p style="font-family:'Lato',sans-serif;font-size:0.75rem;color:rgba(245,240,232,0.6);text-transform:uppercase;letter-spacing:0.1em;">Spots</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: image -->
+      <div class="fade-in">
+        <div style="border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,0.2);">
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/IMG_6245_c9a830d2.jpg"
+               alt="SDC Members" style="width:100%;height:420px;object-fit:cover;object-position:center top;display:block;" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ THE ROUTE (id=route) ══════════ -->
+<section id="route" style="background:#1A2E1A;padding:6rem 0;">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:4rem;">
+      <p style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.75rem;">The Expedition</p>
+      <h2 style="font-family:'Dancing Script',cursive;font-size:clamp(2.5rem, 5vw, 4rem);color:#F5F0E8;">The Route</h2>
+      <div class="motif">
+        <div class="motif-line" style="background:linear-gradient(90deg, transparent, #C9A84C);"></div>
+        <div class="motif-diamond"></div>
+        <div class="motif-line" style="background:linear-gradient(90deg, #C9A84C, transparent);"></div>
+      </div>
+    </div>
+
+    <!-- Route days -->
+    <div class="relative max-w-3xl mx-auto" style="position:relative;max-width:768px;margin:0 auto;">
+      <!-- Vertical line (desktop) -->
+      <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(180deg, transparent, #C9A84C, #C9A84C, transparent);transform:translateX(-50%);pointer-events:none;" class="md:block hidden"></div>
+
+      <!-- Day 1 -->
+      <div class="fade-in" style="display:flex;flex-direction:column;align-items:center;gap:2rem;margin-bottom:4rem;" id="day1-row">
+        <style>#day1-row { flex-direction: column; } @media(min-width:768px){#day1-row{flex-direction:row;}}</style>
+        <!-- Image -->
+        <div style="flex:1;">
+          <div style="border:1px solid rgba(201,168,76,0.25);border-radius:4px;overflow:hidden;">
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/sdc-showroom_df591e79.jpg"
+                 alt="Stuttgart" style="width:100%;height:220px;object-fit:cover;display:block;" class="gallery-img"/>
+          </div>
+        </div>
+        <!-- Dot -->
+        <div style="display:none;flex-direction:column;align-items:center;min-width:40px;" class="md:flex">
+          <div style="width:14px;height:14px;border-radius:50%;background:#C9A84C;border:3px solid #1A2E1A;box-shadow:0 0 0 2px #C9A84C;"></div>
+        </div>
+        <!-- Text -->
+        <div style="flex:1;">
+          <p style="font-family:'Lato',sans-serif;font-size:11px;letter-spacing:0.2em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.25rem;">Day 1 · 15 May</p>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#F5F0E8;margin-bottom:0.25rem;">Stuttgart</h3>
+          <p style="font-family:'Lato',sans-serif;font-size:0.8rem;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Germany</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.75);line-height:1.8;font-size:0.95rem;">Depart from the home of Porsche and Mercedes-Benz. Drivers assemble, cars are collected and the adventure begins. An evening dinner to kick off the expedition.</p>
+        </div>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="fade-in" style="display:flex;flex-direction:column;align-items:center;gap:2rem;margin-bottom:4rem;" id="day2-row">
+        <style>#day2-row { flex-direction: column; } @media(min-width:768px){#day2-row{flex-direction:row-reverse;}}</style>
+        <!-- Image -->
+        <div style="flex:1;">
+          <div style="border:1px solid rgba(201,168,76,0.25);border-radius:4px;overflow:hidden;">
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/alpine_driving_road_ce184b92.jpg"
+                 alt="The Alps" style="width:100%;height:220px;object-fit:cover;display:block;" class="gallery-img"/>
+          </div>
+        </div>
+        <!-- Dot -->
+        <div style="display:none;flex-direction:column;align-items:center;min-width:40px;" class="md:flex">
+          <div style="width:14px;height:14px;border-radius:50%;background:#C9A84C;border:3px solid #1A2E1A;box-shadow:0 0 0 2px #C9A84C;"></div>
+        </div>
+        <!-- Text -->
+        <div style="flex:1;">
+          <p style="font-family:'Lato',sans-serif;font-size:11px;letter-spacing:0.2em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.25rem;">Day 2 · 16 May</p>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#F5F0E8;margin-bottom:0.25rem;">The Alps</h3>
+          <p style="font-family:'Lato',sans-serif;font-size:0.8rem;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Austria / Slovenia</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.75);line-height:1.8;font-size:0.95rem;">The centrepiece of the drive. Winding alpine passes, breathtaking mountain scenery and the kind of roads that are just built to be driven.</p>
+        </div>
+      </div>
+
+      <!-- Day 3 -->
+      <div class="fade-in" style="display:flex;flex-direction:column;align-items:center;gap:2rem;" id="day3-row">
+        <style>#day3-row { flex-direction: column; } @media(min-width:768px){#day3-row{flex-direction:row;}}</style>
+        <!-- Image -->
+        <div style="flex:1;">
+          <div style="border:1px solid rgba(201,168,76,0.25);border-radius:4px;overflow:hidden;">
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/sdc-lambos-snow_ce86d8f0.jpg"
+                 alt="Budapest" style="width:100%;height:220px;object-fit:cover;display:block;" class="gallery-img"/>
+          </div>
+        </div>
+        <!-- Dot -->
+        <div style="display:none;flex-direction:column;align-items:center;min-width:40px;" class="md:flex">
+          <div style="width:14px;height:14px;border-radius:50%;background:#C9A84C;border:3px solid #1A2E1A;box-shadow:0 0 0 2px #C9A84C;"></div>
+        </div>
+        <!-- Text -->
+        <div style="flex:1;">
+          <p style="font-family:'Lato',sans-serif;font-size:11px;letter-spacing:0.2em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.25rem;">Day 3 · 17 May</p>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#F5F0E8;margin-bottom:0.25rem;">Budapest</h3>
+          <p style="font-family:'Lato',sans-serif;font-size:0.8rem;color:rgba(201,168,76,0.7);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;">Hungary</p>
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.75);line-height:1.8;font-size:0.95rem;">Arrive into one of Europe's most vibrant cities. A celebratory dinner, the best of Budapest's nightlife, and memories that will last a lifetime.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ WHAT'S INCLUDED (dark green section) ══════════ -->
+<section style="background:#2A4A2A;padding:6rem 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;bottom:0;left:0;opacity:0.04;pointer-events:none;">
+    <svg viewBox="0 0 200 300" fill="none" style="height:100%;width:auto;">
+      <path d="M100 300 C100 300 80 250 90 200 C100 150 60 120 80 80 C100 40 90 0 90 0" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+      <path d="M115 300 C115 300 95 250 105 200 C115 150 75 120 95 80 C115 40 105 0 105 0" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:3rem;">
+      <p style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.75rem;">The Package</p>
+      <h2 style="font-family:'Dancing Script',cursive;font-size:clamp(2.2rem, 4vw, 3.5rem);color:#F5F0E8;">What's Included</h2>
+      <div class="motif">
+        <div class="motif-line" style="background:linear-gradient(90deg, transparent, #C9A84C);"></div>
+        <div class="motif-diamond"></div>
+        <div class="motif-line" style="background:linear-gradient(90deg, #C9A84C, transparent);"></div>
+      </div>
+    </div>
+
+    <div style="display:grid;gap:1.5rem;" class="md:grid-cols-2 lg:grid-cols-3">
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:2rem;">
+        <div style="font-size:2rem;margin-bottom:1rem;">🗓️</div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#F5F0E8;margin-bottom:0.5rem;">Fully Curated Itinerary</h4>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.7);line-height:1.7;font-size:0.9rem;">Every road, hotel, dinner, and detail is planned for you. Just show up and enjoy the drive.</p>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:2rem;">
+        <div style="font-size:2rem;margin-bottom:1rem;">🏨</div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#F5F0E8;margin-bottom:0.5rem;">All Inclusive Hotel Accommodation</h4>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.7);line-height:1.7;font-size:0.9rem;">Hand-picked hotels along the route for all three nights fully included, reflecting the spirit of the expedition.</p>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:2rem;">
+        <div style="font-size:2rem;margin-bottom:1rem;">🍽️</div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#F5F0E8;margin-bottom:0.5rem;">All Inclusive Group Dinners</h4>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.7);line-height:1.7;font-size:0.9rem;">All dinners on night one, two and three are included, with a set menu and drinks.</p>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:2rem;">
+        <div style="font-size:2rem;margin-bottom:1rem;">📸</div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#F5F0E8;margin-bottom:0.5rem;">Professional Content Creation</h4>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.7);line-height:1.7;font-size:0.9rem;">2 dedicated content creators capturing the entire journey. You'll leave with cinematic memories.</p>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:2rem;">
+        <div style="font-size:2rem;margin-bottom:1rem;">🗺️</div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#F5F0E8;margin-bottom:0.5rem;">Curated Route</h4>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.7);line-height:1.7;font-size:0.9rem;">Every road, every stop, every viewpoint carefully selected for maximum driving pleasure.</p>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:2rem;">
+        <div style="font-size:2rem;margin-bottom:1rem;">👥</div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#F5F0E8;margin-bottom:0.5rem;">Spirited Drivers Club Access, 12 months free</h4>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.7);line-height:1.7;font-size:0.9rem;">Full access to the Spirited Drivers Club network for 12 months — a community of ambitious, like-minded drivers across Europe.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ GALLERY (id=gallery) ══════════ -->
+<section id="gallery" style="background:#1A2E1A;padding:6rem 0;">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:3rem;">
+      <p style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.75rem;">The Vibe</p>
+      <h2 style="font-family:'Dancing Script',cursive;font-size:clamp(2.2rem, 4vw, 3.5rem);color:#F5F0E8;">The Club</h2>
+      <div class="motif">
+        <div class="motif-line" style="background:linear-gradient(90deg, transparent, #C9A84C);"></div>
+        <div class="motif-diamond"></div>
+        <div class="motif-line" style="background:linear-gradient(90deg, #C9A84C, transparent);"></div>
+      </div>
+    </div>
+
+    <!-- 5-image grid: col-span-1 row-span-2 + 4 normal -->
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:auto;gap:0.75rem;" class="md:grid-cols-3">
+      <div style="grid-row:span 2;border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,0.15);" class="fade-in">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/IMG_6732_d5afb54c.jpg"
+             alt="SDC Event" class="gallery-img" style="width:100%;height:460px;object-fit:cover;" />
+      </div>
+      <div style="border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,0.15);" class="fade-in">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/DSC02613_512b7b1a.jpg"
+             alt="SDC Event" class="gallery-img" style="width:100%;height:220px;object-fit:cover;" />
+      </div>
+      <div style="border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,0.15);" class="fade-in">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/IMG_7578_9162a060.jpg"
+             alt="SDC Event" class="gallery-img" style="width:100%;height:220px;object-fit:cover;" />
+      </div>
+      <div style="border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,0.15);" class="fade-in">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/IMG_6931_f3ffc4b3.jpg"
+             alt="SDC Event" class="gallery-img" style="width:100%;height:220px;object-fit:cover;" />
+      </div>
+      <div style="border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,0.15);" class="fade-in">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663283628908/mUpBJCnHgEUtjLhsqMcQCs/IMG_8753_73ef983a.jpg"
+             alt="SDC Event" class="gallery-img" style="width:100%;height:220px;object-fit:cover;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery quote strip -->
+<div style="background:#1E3A3A;padding:4rem 0;border-top:1px solid rgba(201,168,76,0.2);">
+  <div class="container text-center fade-in">
+    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.2rem, 3vw, 1.8rem);color:rgba(245,240,232,0.85);max-width:700px;margin:0 auto 1.5rem;">
+      "The passion for cars and the love we have for them is only half the fun. It's the people along the way that make it truly memorable."
+    </p>
+    <div style="margin-top:1.5rem;">
+      <a href="https://buy.stripe.com/eVq5kCaee3vP09Y0WggQE03" target="_blank" rel="noopener noreferrer"
+         class="btn-gold">Save Your Spot →</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ JOIN / DEPOSIT (id=deposit) ══════════ -->
+<section id="deposit" style="background:#1A2E1A;padding:6rem 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);opacity:0.04;pointer-events:none;">
+    <svg viewBox="0 0 200 300" fill="none" style="height:100%;width:auto;">
+      <path d="M100 300 C100 300 80 250 90 200 C100 150 60 120 80 80 C100 40 90 0 90 0" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+      <path d="M115 300 C115 300 95 250 105 200 C115 150 75 120 95 80 C115 40 105 0 105 0" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div style="max-width:672px;margin:0 auto;text-align:center;">
+      <div class="fade-in">
+        <p style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.75rem;">Join the Expedition</p>
+        <h2 style="font-family:'Dancing Script',cursive;font-size:clamp(2.5rem, 5vw, 4rem);color:#F5F0E8;margin-bottom:0.5rem;">Secure Your Spot</h2>
+        <div class="motif">
+          <div class="motif-line" style="background:linear-gradient(90deg, transparent, #C9A84C);"></div>
+          <div class="motif-diamond"></div>
+          <div class="motif-line" style="background:linear-gradient(90deg, #C9A84C, transparent);"></div>
+        </div>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.75);line-height:1.9;margin:1.5rem auto;font-size:1.05rem;max-width:520px;">
+          A refundable deposit secures your place on the Stuttgart → Budapest expedition. Once confirmed, we'll be in touch with the full itinerary, car selection, and everything you need to know.
+        </p>
+      </div>
+
+      <!-- Pricing card -->
+      <div class="fade-in" style="background:linear-gradient(135deg, rgba(42,74,42,0.8), rgba(30,58,58,0.8));border:1px solid rgba(201,168,76,0.4);border-radius:4px;padding:3rem 2.5rem;margin-bottom:2rem;">
+        <p style="font-family:'Lato',sans-serif;font-size:11px;letter-spacing:0.2em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.5rem;">Deposit to Reserve — Per Person</p>
+        <h3 style="font-family:'Playfair Display',serif;font-size:3.5rem;color:#F5F0E8;font-weight:700;margin-bottom:0.25rem;">€300</h3>
+        <p style="font-family:'Lato',sans-serif;font-size:0.85rem;color:rgba(245,240,232,0.6);margin-bottom:0.5rem;">Refundable deposit · Full balance due May 1st 2026</p>
+
+        <p style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#C9A84C;margin-bottom:2rem;letter-spacing:0.03em;">
+          Full event price: <strong style="color:#F5F0E8;">€1,650 per person</strong> <span style="font-family:'Lato',sans-serif;font-size:0.8rem;color:rgba(245,240,232,0.5);">(deposit deducted)</span>
+        </p>
+
+        <!-- Inclusions -->
+        <div style="border-top:1px solid rgba(201,168,76,0.2);padding-top:1.5rem;margin-bottom:2rem;text-align:left;display:flex;flex-direction:column;gap:0.6rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#C9A84C;flex-shrink:0;">✓</span><span style="font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(245,240,232,0.8);">All Inclusive Lunches on all 3 days (food and drinks)</span></div>
+          <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#C9A84C;flex-shrink:0;">✓</span><span style="font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(245,240,232,0.8);">3 nights boutique hotel accommodation</span></div>
+          <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#C9A84C;flex-shrink:0;">✓</span><span style="font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(245,240,232,0.8);">Group dinners on Day 1, 2 &amp; 3 fully included</span></div>
+          <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#C9A84C;flex-shrink:0;">✓</span><span style="font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(245,240,232,0.8);">2 Professional videographers for your own content creation needs</span></div>
+          <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#C9A84C;flex-shrink:0;">✓</span><span style="font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(245,240,232,0.8);">Curated route with all logistics handled</span></div>
+          <div style="display:flex;align-items:center;gap:0.75rem;"><span style="color:#C9A84C;flex-shrink:0;">✓</span><span style="font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(245,240,232,0.8);">Access to the SDC club for 12 months included</span></div>
+        </div>
+
+        <a href="https://buy.stripe.com/eVq5kCaee3vP09Y0WggQE03" target="_blank" rel="noopener noreferrer"
+           class="btn-gold" style="display:block;width:100%;text-align:center;font-size:14px;padding:1rem 2rem;">
+          Secure Your Spot — €300
+        </a>
+        <p style="font-family:'Lato',sans-serif;font-size:11px;color:rgba(201,168,76,0.5);margin-top:1rem;letter-spacing:0.05em;">
+          Secure checkout · Refundable until May 1st 2026
+        </p>
+      </div>
+
+      <!-- Get in touch -->
+      <div class="fade-in">
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.6);line-height:1.9;font-size:0.95rem;">
+          Still have questions? If you're considering joining us in May, send us a message. Let's chat through the details and see if it's the right fit.
+          <a href="https://instagram.com/spiriteddriversclub" target="_blank" rel="noopener noreferrer"
+             style="color:#C9A84C;text-decoration:none;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
+            Directly DM me and we can talk it through.
+          </a>
+        </p>
+      </div>
+
+      <!-- BYOC note -->
+      <div class="fade-in" style="margin-top:2.5rem;border-top:1px solid rgba(201,168,76,0.15);padding-top:2rem;text-align:center;">
+        <p style="font-family:'Lato',sans-serif;font-size:11px;letter-spacing:0.2em;color:#C9A84C;text-transform:uppercase;margin-bottom:1rem;">🚗&nbsp; Bring Your Own Car</p>
+        <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.65);font-size:0.9rem;line-height:1.9;max-width:480px;margin:0 auto;">
+          This is a <strong style="color:#F5F0E8;font-weight:600;">bring-your-own-car expedition</strong>, car costs are not included in the ticket price. Fuel, parking, and any road tolls along the route are at your own expense.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ FAQ (id=faq) ══════════ -->
+<section id="faq" style="background:#1A2E1A;padding:6rem 0;">
+  <div class="container">
+    <div class="text-center fade-in" style="margin-bottom:3rem;">
+      <p style="font-family:'Lato',sans-serif;font-size:12px;letter-spacing:0.25em;color:#C9A84C;text-transform:uppercase;margin-bottom:0.75rem;">Got Questions</p>
+      <h2 style="font-family:'Dancing Script',cursive;font-size:clamp(2.5rem, 5vw, 3.5rem);color:#F5F0E8;margin-bottom:0.5rem;">Frequently Asked</h2>
+      <div class="motif">
+        <div class="motif-line" style="background:linear-gradient(90deg, transparent, #C9A84C);"></div>
+        <div class="motif-diamond"></div>
+        <div class="motif-line" style="background:linear-gradient(90deg, #C9A84C, transparent);"></div>
+      </div>
+    </div>
+
+    <div style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:0.75rem;">
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;text-align:left;">
+          <span style="font-family:'Playfair Display',serif;font-size:1rem;color:#F5F0E8;line-height:1.4;">What exactly is included in the €1,650 ticket?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer" style="padding:0 1.5rem;">
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.72);line-height:1.8;font-size:0.93rem;padding-bottom:1.25rem;">Everything except your car costs. That means 3 nights in boutique hotels, all lunches across the 3 days, group dinners on all 3 evenings, 2 professional videographers capturing content for you, a fully curated route with all logistics handled, and 12 months of SDC membership.</p>
+        </div>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;text-align:left;">
+          <span style="font-family:'Playfair Display',serif;font-size:1rem;color:#F5F0E8;line-height:1.4;">What car do I need to bring?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer" style="padding:0 1.5rem;">
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.72);line-height:1.8;font-size:0.93rem;padding-bottom:1.25rem;">Any car you love driving. There's no minimum spec or marque requirement — we've had everything from hot hatches to supercars on previous runs. The only rule is that it should be road-legal and in good mechanical condition.</p>
+        </div>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;text-align:left;">
+          <span style="font-family:'Playfair Display',serif;font-size:1rem;color:#F5F0E8;line-height:1.4;">Are rental cars allowed?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer" style="padding:0 1.5rem;">
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.72);line-height:1.8;font-size:0.93rem;padding-bottom:1.25rem;">Absolutely. If you don't have a car you want to drive or need to fly in, rental is a great option. Get in touch with us directly and we'll connect you with rental partners who know the route and can match your budget.</p>
+        </div>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;text-align:left;">
+          <span style="font-family:'Playfair Display',serif;font-size:1rem;color:#F5F0E8;line-height:1.4;">How many spots are available?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer" style="padding:0 1.5rem;">
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.72);line-height:1.8;font-size:0.93rem;padding-bottom:1.25rem;">We're keeping this expedition intimate — a maximum of 20 people. This is intentional: smaller groups mean better roads, better dinners, and real connections rather than a convoy of strangers.</p>
+        </div>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;text-align:left;">
+          <span style="font-family:'Playfair Display',serif;font-size:1rem;color:#F5F0E8;line-height:1.4;">Is my deposit refundable?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer" style="padding:0 1.5rem;">
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.72);line-height:1.8;font-size:0.93rem;padding-bottom:1.25rem;">Yes. Your €300 deposit is fully refundable if you cancel before May 1st, 2026. After that date, deposits are non-refundable as final logistics and bookings will already be confirmed.</p>
+        </div>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;text-align:left;">
+          <span style="font-family:'Playfair Display',serif;font-size:1rem;color:#F5F0E8;line-height:1.4;">Do I need to arrange my own travel insurance?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer" style="padding:0 1.5rem;">
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.72);line-height:1.8;font-size:0.93rem;padding-bottom:1.25rem;">Yes. We strongly recommend comprehensive travel and breakdown insurance for both you and your vehicle. We'll share a recommended checklist with all confirmed participants.</p>
+        </div>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;text-align:left;">
+          <span style="font-family:'Playfair Display',serif;font-size:1rem;color:#F5F0E8;line-height:1.4;">Can I join solo or do I need to come with a group?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer" style="padding:0 1.5rem;">
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.72);line-height:1.8;font-size:0.93rem;padding-bottom:1.25rem;">Solo drivers are very welcome — in fact, most of our members join solo and leave with a group of friends. The whole point of SDC is to build that community.</p>
+        </div>
+      </div>
+
+      <div class="fade-in" style="background:rgba(26,46,26,0.6);border:1px solid rgba(201,168,76,0.2);border-radius:4px;overflow:hidden;">
+        <button onclick="toggleFaq(this)" style="width:100%;padding:1.25rem 1.5rem;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;text-align:left;">
+          <span style="font-family:'Playfair Display',serif;font-size:1rem;color:#F5F0E8;line-height:1.4;">What happens after I pay the deposit?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer" style="padding:0 1.5rem;">
+          <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.72);line-height:1.8;font-size:0.93rem;padding-bottom:1.25rem;">A refundable deposit secures your place on the Stuttgart → Budapest expedition. Once confirmed, we'll be in touch with the full itinerary, car selection, and everything you need to know.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="fade-in" style="text-align:center;margin-top:3rem;">
+      <p style="font-family:'Lato',sans-serif;font-weight:300;color:rgba(245,240,232,0.55);font-size:0.9rem;margin-bottom:1.25rem;">
+        Still have questions? Get in touch directly.
+      </p>
+      <a href="https://instagram.com/spiriteddriversclub" target="_blank" rel="noopener noreferrer"
+         class="btn-outline-gold">Send us a DM on Instagram</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer style="background:#1A2E1A;border-top:1px solid rgba(201,168,76,0.1);padding:4rem 0 3rem;">
+  <div class="container text-center">
+    <p style="font-family:'Dancing Script',cursive;font-size:1.5rem;color:#C9A84C;margin-bottom:0.5rem;">Stuttgart → Budapest</p>
+    <p style="font-family:'Lato',sans-serif;font-size:0.8rem;color:rgba(245,240,232,0.4);letter-spacing:0.1em;">15 – 17 May 2026 · Spirited Drivers Club</p>
+    <div style="margin-top:2rem;border-top:1px solid rgba(201,168,76,0.08);padding-top:1.5rem;">
+      <p style="font-family:'Lato',sans-serif;font-size:0.75rem;color:rgba(245,240,232,0.3);">© 2026 Spirited Drivers Club. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // ── Mobile menu ──
+  let menuOpen = false;
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    const menu = document.getElementById('mobile-menu');
+    const b1 = document.getElementById('bar1');
+    const b2 = document.getElementById('bar2');
+    const b3 = document.getElementById('bar3');
+    menu.classList.toggle('open', menuOpen);
+    b1.style.transform = menuOpen ? 'translateY(8px) rotate(45deg)' : '';
+    b2.style.opacity = menuOpen ? '0' : '1';
+    b3.style.transform = menuOpen ? 'translateY(-8px) rotate(-45deg)' : '';
+  }
+  function closeMenu() {
+    menuOpen = false;
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('bar1').style.transform = '';
+    document.getElementById('bar2').style.opacity = '1';
+    document.getElementById('bar3').style.transform = '';
+  }
+
+  // ── FAQ accordion ──
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const icon = btn.querySelector('.faq-icon');
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      icon.classList.add('open');
+    }
+  }
+
+  // ── Countdown to 15 May 2026 ──
+  function updateCountdown() {
+    const target = new Date('2026-05-15T08:00:00');
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-minutes').textContent = '00';
+      document.getElementById('cd-seconds').textContent = '00';
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-minutes').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-seconds').textContent = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── Scroll fade-in ──
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+</script>
+
+</body>
 </html>
